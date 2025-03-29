@@ -11,7 +11,7 @@ apis:
       - url: ' https://www.drillster.com/info/developers/'
         type: Documentation
     description: >-
-      Drillster is an open platform — developers are encouraged and invited to
+      Drillster is an open platform  developers are encouraged and invited to
       build on Drillsters functionality to create mashups or seamless
       integrations with other systems. Use Drillster on your website to create a
       more interactive user experience or to engage your users with your
@@ -19,20 +19,25 @@ apis:
       retrieve progress information for your user base. 
 name: Drillster
 tags:
-  - API
+  - Learning
+  - Education
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 created: '2025-02-17'
-modified: '2025-02-17'
+modified: '2025-03-29'
 position: Consumer
 description: >-
-  Drillster is an open platform — developers are encouraged and invited to build
-  on Drillsters functionality to create mashups or seamless integrations with
-  other systems. Use Drillster on your website to create a more interactive user
-  experience or to engage your users with your content. Or connect with our
-  back-end to provision user accounts, or to retrieve progress information for
-  your user base. 
+  Drillster is a digital learning platform that helps users enhance their
+  knowledge and skills through personalized and interactive learning
+  experiences. With Drillster, users have access to a vast library of learning
+  modules and quizzes that are tailored to their individual needs and learning
+  goals. The platform utilizes adaptive learning technology to track user
+  progress and provide real-time feedback, allowing users to continuously
+  improve and retain information more effectively. Whether users are studying
+  for exams, learning new skills, or simply looking to expand their knowledge,
+  Drillster offers a dynamic and engaging learning solution to help users
+  achieve their learning objectives.
 maintainers:
   - FN: Kin Lane
     email: info@apievangelist.com
