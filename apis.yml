@@ -5,7 +5,11 @@ apis:
   - aid: drillster:drillster
     name: Drillster
     tags:
-      - API
+      - Learning
+      - Education
+      - Quizzes
+      - Training
+      - Assessments
     humanURL: ' https://www.drillster.com/info/developers/'
     properties:
       - url: ' https://www.drillster.com/info/developers/'
@@ -21,6 +25,9 @@ name: Drillster
 tags:
   - Learning
   - Education
+  - Quizzes
+  - Training
+  - Assessments
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
