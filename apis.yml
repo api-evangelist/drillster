@@ -3,7 +3,7 @@ url: >-
   https://raw.githubusercontent.com/api-evangelist/drillster/refs/heads/main/apis.yml
 apis:
   - aid: drillster:drillster
-    name: Drillster
+    name: Drillster API
     tags:
       - Learning
       - Education
