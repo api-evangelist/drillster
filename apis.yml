@@ -15,12 +15,15 @@ apis:
       - url: ' https://www.drillster.com/info/developers/'
         type: Documentation
     description: >-
-      Drillster is an open platform  developers are encouraged and invited to
-      build on Drillsters functionality to create mashups or seamless
-      integrations with other systems. Use Drillster on your website to create a
-      more interactive user experience or to engage your users with your
-      content. Or connect with our back-end to provision user accounts, or to
-      retrieve progress information for your user base. 
+      The Drillster API is a powerful tool that allows developers to easily
+      integrate Drillster's learning and training technology into their own
+      applications. With this API, users can access a wide range of features,
+      including the ability to create and manage learning content, track and
+      analyze user progress and performance, and customize the learning
+      experience to meet their specific needs. By leveraging the Drillster API,
+      developers can streamline the process of incorporating personalized
+      learning solutions into their software, ultimately enhancing the
+      effectiveness and efficiency of their training programs.
 name: Drillster
 tags:
   - Learning
