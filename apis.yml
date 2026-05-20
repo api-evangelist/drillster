@@ -48,6 +48,10 @@ apis:
       - type: LTI
         url: https://www.drillster.com/info/developers/lti
 common:
+  - type: GitHubOrganization
+    url: https://github.com/drillster
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/drillster-bv
   - type: Website
     url: https://www.drillster.com
   - type: Documentation
