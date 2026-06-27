@@ -56,7 +56,7 @@ common:
     url: https://www.drillster.com
   - type: Documentation
     url: https://www.drillster.com/info/developers/
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://drillster.com/llms.txt
 maintainers:
   - FN: Kin Lane
