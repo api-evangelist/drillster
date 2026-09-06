@@ -4,10 +4,15 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Drillster
 providerId: drillster
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
+modified: '2026-09-06'
+generated: '2026-09-06'
+method: searched
+source: https://www.drillster.com/info/developers/api/2.1.1/
+note: >-
+  REPLACES a 2026-05-04 bulk-sweep scaffold that published five invented limits (10/100/1000
+  requests per minute, 1,000 and 100,000 requests per month) and five invented response
+  headers. Drillster publishes none of that. This file records what the provider actually
+  states, and what a live probe actually observed.
 tags:
   - Assessments
   - Education
@@ -16,78 +21,49 @@ tags:
   - Training
   - LMS
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Drillster API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
+description: >-
+  Drillster documents no numeric rate limit for its REST API. Its API terms of use reserve the
+  right to throttle: "In the interest of the overall performance of our system, Drillster
+  retains the right to restrict the throughput of individual API users." No limit, window,
+  burst allowance, quota or 429 behaviour is published, and no rate-limit response headers are
+  documented or observed.
+limit_count: 0
+limits: []
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  limit: null
+  remaining: null
+  reset: null
+  retryAfter: null
+  policy: null
+headers_observed: []
 responseCodes:
-  throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
-limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Drillster API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Drillster API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Drillster API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Drillster API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Drillster API
-policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  throttled: null
+  note: >-
+    429 is not in Drillster's documented status-code list. The reference documents 200, 201,
+    204, 304, 400, 401, 403, 404, 500, 502 and 503 — a throttled request has no documented
+    signature, so a client cannot distinguish throttling from a 503 overload response.
+probe:
+  date: '2026-09-06'
+  request: GET https://www.drillster.com/api/2.1.1/version
+  status: 200
+  rate_limit_headers_present: false
+  observed_headers: [vary, x-content-type-options, x-xss-protection, cache-control, pragma,
+                     expires, strict-transport-security, x-frame-options, referrer-policy,
+                     content-type, date, via, alt-svc]
+  note: >-
+    An unauthenticated call to the public version endpoint returned no X-RateLimit-*,
+    RateLimit-* or Retry-After header. Authenticated behaviour was not tested (no credentials).
+related_throughput_limits:
+  note: >-
+    The one throughput contract Drillster DOES publish is on the outbound webhook side, and it
+    is a receiver obligation rather than a caller limit.
+  items:
+    - surface: Event notification service
+      rule: The receiver must return a 2xx within 30 seconds or delivery is retried.
+      docs: https://www.drillster.com/info/developers/api/push/retry/
+    - surface: Event notification service
+      rule: Undeliverable events are retried with increasing backoff for 7 days, then discarded.
+      docs: https://www.drillster.com/info/developers/api/push/retry/
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

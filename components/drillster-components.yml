@@ -1,0 +1,81 @@
+generated: '2026-09-06'
+method: searched
+source: https://www.drillster.com/info/developers/widgets/
+description: >-
+  Drillster ships a first-party embeddable widget family — iframe-backed HTML components
+  driven by one small JavaScript loader — for putting adaptive learning surfaces inside a
+  customer's own site or portal. This is distinct from a server-side SDK; Drillster publishes
+  no client libraries for the REST API (see packages/drillster-packages.yml).
+loader:
+  name: Drillster widget loader
+  url: https://www.drillster.com/widgets/loader.js
+  embed: '<script src="https://www.drillster.com/widgets/loader.js" type="text/javascript"></script>'
+  size: 4KB (as documented)
+  registry: cdn
+  version: null
+  version_note: >-
+    The loader is served unpinned from the provider's own host — the documented script tag
+    carries no version and no integrity hash, so a consumer cannot tell which build they are
+    getting. Recorded as null deliberately: checked, nothing to record.
+  placement: once per page, documented as best placed immediately before the closing body tag
+  note: Required on the page for any widget to render, regardless of widget count.
+families:
+  - family: Learning surfaces
+    components:
+      - name: Player widget
+        css_class: drl-player
+        docs: https://www.drillster.com/info/developers/widgets/player/
+        description: Plays drills, stories, tests and courses. The module end users interact with.
+      - name: Tile widget
+        css_class: drl-tile
+        docs: https://www.drillster.com/info/developers/widgets/tile/
+        description: Displays a dynamic tile for a drill, story, course or test object.
+      - name: Repertoire widget
+        css_class: drl-repertoire
+        docs: https://www.drillster.com/info/developers/widgets/repertoire/
+        description: Displays the user's entire repertoire, with an optional search facility.
+  - family: Identity and access
+    components:
+      - name: Identity widget
+        css_class: drl-identity
+        docs: https://www.drillster.com/info/developers/widgets/identity/
+        description: Displays the user's identity, or lets an unauthenticated user log in.
+      - name: Access code widget
+        css_class: drl-access-code
+        docs: https://www.drillster.com/info/developers/widgets/access-code/
+        description: Renders a form for entering a group access code.
+  - family: Subscription
+    components:
+      - name: Subscription widget
+        css_class: drl-subscription
+        docs: https://www.drillster.com/info/developers/widgets/subscription/
+        description: >-
+          Displays the details and contents of a catalog or group subscription, with an
+          optional search facility.
+component_count: 6
+embedding:
+  markup: '<div class="drl-widget {widget_type}"></div>'
+  delegated_login:
+    attribute: drl-token
+    example: '<div class="drl-widget drl-player" drl-token="{access token}"></div>'
+    description: >-
+      Most widgets accept an OAuth access token obtained for the end user, so the widget
+      renders pre-authenticated and the user is not asked to log in again.
+    docs: https://www.drillster.com/info/developers/rest-apis/oauth/
+client_side_events:
+  description: >-
+    Widgets emit client-side events (initialisation, question answered, conditions met) that
+    the loader forwards to the hosting page.
+  subscribe_api: "drillster.widgets().on('EVENT_TYPE', function(event) { ... })"
+  filtering:
+    - by widget id — drillster.widgets('tile42')
+    - by id pattern — drillster.widgets('tile*') / drillster.widgets('tile(1|3)')
+    - by event-type regex — .on('(EVENT_TYPE_1|EVENT_TYPE_2)', ...)
+  event_shape:
+    type: the event type
+    origin: the emitting widget id, or UNKNOWN for a widget with no id
+    data: optional payload, shape depends on widget and event type
+  event_catalog_published: false
+  event_catalog_note: >-
+    The general event mechanism is documented but the per-widget event-type list lives on each
+    widget's own page and no consolidated catalogue is published; not reconstructed here.

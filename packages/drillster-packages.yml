@@ -1,0 +1,74 @@
+generated: '2026-09-06'
+method: searched
+source: >-
+  registry.npmjs.org search, pypi.org, pub.dev, api.github.com/orgs/drillster/repos, and the
+  Drillster developer documentation at https://www.drillster.com/info/developers/
+api_client_libraries: []
+sdk_count: 0
+note: >-
+  Drillster publishes NO first-party client library for its REST API in any registry. Searched
+  npm (registry.npmjs.org text search for "drillster" — zero results), PyPI (pypi.org/pypi/
+  drillster/json — HTTP 404), pub.dev, and the full public repository list of the
+  github.com/drillster organization (6 repos, none an API client). The developer
+  documentation never links an SDK; every code example in the OAuth and endpoint pages is a
+  raw curl or HTTP request. No SDKs pointer is emitted for this record — the ergonomics
+  sdk_count check should read a true zero here, not a credited absence.
+  The one client-side artifact Drillster does distribute is the widget loader, which is not a
+  registry package: see components/drillster-components.yml.
+other_first_party_packages:
+  note: >-
+    These ARE published by Drillster and are verifiably first-party, but none of them wraps
+    the Drillster API — they are internal tooling the company open-sourced. Recorded so the
+    absence above is not confused with the company publishing nothing at all.
+  packages:
+    - language: dart
+      registry: pub.dev
+      name: ansi_text
+      url: https://pub.dev/packages/ansi_text
+      install: dart pub add ansi_text
+      version: 1.2.0
+      published: '2026-02-05'
+      official: true
+      api_client: false
+      publisher: drillster.dev (verified pub.dev publisher)
+      description: ANSI terminal styling and colour library.
+    - language: go
+      registry: github
+      name: drone-email
+      url: https://github.com/drillster/drone-email
+      version: null
+      published: null
+      official: true
+      api_client: false
+      description: Drone CI plugin for sending email notifications. No module proxy release recorded.
+    - language: shell
+      registry: github
+      name: drone-volume-cache
+      url: https://github.com/drillster/drone-volume-cache
+      version: null
+      published: null
+      official: true
+      api_client: false
+      description: Drone CI plugin for caching to a locally mounted volume.
+    - language: shell
+      registry: github
+      name: drone-rsync
+      url: https://github.com/drillster/drone-rsync
+      version: null
+      published: null
+      official: true
+      api_client: false
+      description: Drone CI plugin for syncing files to remote servers.
+    - language: java
+      registry: github
+      name: eclipse-null-eea-augments
+      url: https://github.com/drillster/eclipse-null-eea-augments
+      version: null
+      published: null
+      official: true
+      api_client: false
+      description: Eclipse External null Annotations repository.
+  version_note: >-
+    Only ansi_text is distributed through a package registry with a metadata endpoint, so it
+    is the only entry carrying a real version and date. The GitHub-only repositories have no
+    registry release to read; version and published are null by measurement, not by omission.

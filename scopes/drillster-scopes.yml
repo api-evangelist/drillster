@@ -1,0 +1,42 @@
+generated: '2026-09-06'
+method: searched
+source: https://www.drillster.com/info/developers/rest-apis/oauth/authorization-code-grant/
+docs: https://www.drillster.com/info/developers/rest-apis/oauth/
+note: >-
+  Drillster publishes no OpenAPI and no scope reference page. The only scope value the
+  documentation ever shows in a real token response is ROLE_USER, which appears in both the
+  authorization-code and JWT-bearer examples and in the decoded access-token payload. There
+  is no documented scope parameter on the authorize or token requests: authorization is not
+  carried by OAuth scopes at all but by the Drillster PERMISSION model attached to the
+  account (and, for service accounts, by group access grants). Recorded honestly rather than
+  padded — the permission surface below is documented, the scope surface is effectively one value.
+schemes:
+  - name: OAuth2
+    source: https://www.drillster.com/.well-known/oauth-authorization-server
+    flows:
+      - flow: authorizationCode
+        authorizationUrl: https://www.drillster.com/daas/oauth/authorize
+        tokenUrl: https://www.drillster.com/daas/oauth/token
+      - flow: 'urn:ietf:params:oauth:grant-type:jwt-bearer'
+        tokenUrl: https://www.drillster.com/daas/oauth/token
+scopes:
+  - scope: ROLE_USER
+    description: >-
+      The single scope observed in Drillster access tokens. Grants the token the authority of
+      the Drillster account it was issued for; what that account may actually do is decided by
+      the account's permissions and group access, not by the scope string.
+    flows: [authorizationCode, 'urn:ietf:params:oauth:grant-type:jwt-bearer']
+    sources:
+      - https://www.drillster.com/info/developers/rest-apis/oauth/authorization-code-grant/
+      - https://www.drillster.com/info/developers/rest-apis/oauth/jwt-authorization-grant/
+authorization_model:
+  kind: account permissions + group access (not OAuth scopes)
+  docs: https://www.drillster.com/info/developers/rest-apis/service-accounts/
+  documented_permissions:
+    - name: Manage service accounts
+      note: required to create service accounts for an organization
+    - name: PUBLISH_TO_CATALOG
+      note: surfaced as the not_authorized error on POST /catalogs
+    - name: Groups administrator
+      note: makes an account manager or viewer of every group in the organization
+  group_permission_filter_values: [VIEW, MANAGE]

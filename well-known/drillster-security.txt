@@ -1,0 +1,36 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+# Please confirm that you have the right security.txt file before using the
+# information below.
+Canonical: https://www.drillster.com/.well-known/security.txt
+
+# Do not trust this file after this date:
+Expires: 2026-12-31T13:37:00Z
+
+# If you would like to report a security issue please first read our
+# responsible disclosure policy:
+Policy: https://www.drillster.com/info/reporting-security-breach/
+
+# Ways to contact us in order of preference:
+Contact: mailto:responsible.disclosure@drillster.com
+Contact: tel:+31883750500 
+Encryption: https://www.drillster.com/.well-known/gpg.txt
+
+# We can offer you a proper response in the following languages:
+Preferred-Languages: en, nl, fr, es
+
+# If you think you would like to join our team:
+Hiring: mailto:jobs@drillster.com
+-----BEGIN PGP SIGNATURE-----
+
+iQFPBAEBCAA5FiEEBBxVdOMU388pssJy/iBI39xOh2oFAmnzCyMbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMCwzAAoJEP4gSN/cTodqvQ4H/1TBE9EEHiAZ8EY0Gx6O
+bg2EWfX6S4m7zVerEqfYv33ep5DGE0SyKYdn4X7cAo0EpmbnCRreazm+Q1yScL5e
+vz0xI4IPEuTg8XRziRZEriU8EcmRaoNgCRyGs/4uHLogsDUVQSZ2gccdFv6o+7rE
+tX9bjO01TXxJf8HLwZ/BAel+NrFBnMo3KzIkcluXJi7wcxa3V+C51d/t2L/dql59
+xXr5vwjYuwQ7iXuwYxmzZbldnsoU+llhDMgb5C/ThoQB0ukCrKUr93/sUMUJdzzR
+Ix4YABMD4aYGgTKF4ZcEDSTsXO/RHB2Kn7brtS7K2EkRysHtmUjKbMrlf0enhfoV
+nG8=
+=YXBc
+-----END PGP SIGNATURE-----

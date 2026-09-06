@@ -1,0 +1,123 @@
+generated: '2026-09-06'
+method: searched
+source: https://www.drillster.com/info/developers/api/push/
+spec_type: none
+spec_note: >-
+  Drillster publishes NO AsyncAPI document. It does publish a complete, dated webhook
+  catalogue — the "Event notification service" — across four documentation pages. This file
+  captures that catalogue verbatim; it is a Webhooks artifact, not an AsyncAPI one, and no
+  AsyncAPI pointer is emitted.
+surface:
+  name: Drillster Event Notification Service
+  kind: outbound webhooks
+  docs: https://www.drillster.com/info/developers/api/push/
+  catalog_docs: https://www.drillster.com/info/developers/api/push/events/
+  setup_docs: https://www.drillster.com/info/developers/api/push/webhooks/
+  retry_docs: https://www.drillster.com/info/developers/api/push/retry/
+  console: https://www.drillster.com/console/manage/webhooks
+transport:
+  protocol: HTTPS only, port 443
+  tls_requirement: >-
+    A valid, publicly signed certificate is required on the receiver. Self-signed certificates
+    are not supported. Plaintext HTTP (port 80) is not supported.
+  methods: [POST, PUT]
+  payload: JSON object in the request body
+  url_template:
+    description: >-
+      The target URL is the receiver's configured base URL with the event fields optionally
+      appended. Which fields go in the path is a per-webhook setting ("Add fields to URL path").
+    modes:
+      - mode: POST with body
+        description: neither checkbox set — POST to the base URL with eventType and eventId in the body
+      - mode: POST with event type in the URL
+        description: event type appended to the URL, eventId in the body
+      - mode: PUT with event type and event ID in the URL
+        description: both fields appended to the URL, request sent as PUT
+    example: POST https://www.example.com/drillster/GROUP_MEMBER_ADDED
+authentication:
+  scheme: HTTP Basic (optional)
+  note: >-
+    Username and password are configured per webhook. Credential changes take effect
+    immediately, including for messages already queued for retry. There is no signed-payload
+    (HMAC) verification mechanism documented.
+events:
+  - type: ACCOUNT_CREATED
+    description: Fires when a new user account is created.
+    queue: (ungrouped)
+  - type: GROUP_MEMBER_ADDED
+    description: Fires as and when a member has been added to a group.
+    queue: Group member added/removed
+  - type: GROUP_MEMBER_REMOVED
+    description: Fires as and when a member has been removed from a group.
+    queue: Group member added/removed
+  - type: OBJECTIVE_BECAME_OK
+    description: Fires when a group member becomes compliant with an objective.
+    queue: Objective became OK/not OK
+  - type: OBJECTIVE_BECAME_NOK
+    description: Fires when a group member is no longer compliant with an objective.
+    queue: Objective became OK/not OK
+  - type: QUESTION_ANSWERED
+    description: Fires as and when a drill question is answered by a group member.
+    queue: Question answered
+    volume_note: >-
+      Documented as a high-volume event type; the receiver must keep up or the 7-day queue
+      will discard messages.
+  - type: TEST_COMPLETED
+    description: Fires as and when a test is completed.
+    queue: Test completed
+event_count: 7
+deprecated_events:
+  documented: true
+  names_published: false
+  note: >-
+    The events page states deprecated event types exist and are no longer available for new
+    integrations, but does not name them.
+payload:
+  fields:
+    - name: eventType
+      description: the notification type; may be carried in the URL path instead of the body
+    - name: eventId
+      description: unique identifier for the event; may be carried in the URL path instead of the body
+    - name: event timestamp
+      description: >-
+        Documented as part of the payload and offered as the way a receiver detects a delivery
+        backlog.
+  schema_published: false
+  schema_note: >-
+    Per-event payload object models are referenced ("event types and object models will
+    continue to be offered until an upgrade path has been communicated") but no field-level
+    schema per event type is published on the public pages, and no AsyncAPI/JSON Schema is
+    offered. Not reconstructed here.
+delivery_semantics:
+  guarantee: at-least-once
+  ordering: >-
+    Guaranteed in-order within a queue. A blocked event blocks every subsequent event in the
+    same queue until it succeeds or ages out.
+  acknowledgement:
+    expected_status: any 2xx (typically 200 or 204)
+    timeout_seconds: 30
+    note: >-
+      A non-2xx response, no response, or a late response all count as failed delivery. A valid
+      receiver TLS certificate is also required for an acknowledgement to count.
+  retry:
+    enabled: true
+    duration_days: 7
+    backoff: increasing delay between attempts
+    on_expiry: the event is discarded and the queue advances
+  duplicates:
+    possible: true
+    note: >-
+      Explicitly documented — a lost acknowledgement causes redelivery, so receivers must be
+      idempotent. Drillster cannot resend an already-acknowledged event on request.
+  pause_supported: false
+  outage_notification: false
+subscription_model:
+  creation: >-
+    Webhooks are created in the user console under Manage > Webhooks by a user with the
+    appropriate permission; there is no API endpoint for creating a webhook.
+  connection_scopes: [organization, group]
+  note: >-
+    A webhook must be created AND connected before it fires. Connecting to both the
+    organization and specific groups can duplicate notifications. Deleting a webhook stops
+    delivery immediately, including messages already queued for retry; disconnecting or
+    changing event types affects only new messages.

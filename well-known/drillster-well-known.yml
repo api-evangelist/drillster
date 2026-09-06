@@ -1,0 +1,152 @@
+generated: '2026-09-06'
+method: probed
+source: live GET of the named /.well-known/ path list on every host this record knows
+note: >-
+  Every named path was probed on the three hosts in this record. Two REAL documents were
+  found, both on www.drillster.com — an RFC 9116 security.txt (PGP-signed) and an RFC 8414
+  OAuth 2.0 Authorization Server Metadata document. Two paths returned HTTP 200 with a
+  168-byte HTML meta-refresh redirect to the homepage, not a document; they are recorded
+  with file: null and do NOT count. drill.st (the short-link host) answers 401 with an empty
+  body for every /.well-known/ path and is not a discovery surface. The negative control
+  path returned 404 on every host, so no host echoes paths back as documents.
+path_echo_control: passed
+hit_count: 2
+hosts:
+  - host: https://www.drillster.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: drillster-security.txt
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        file: drillster-oauth-authorization-server.json
+      - path: /.well-known/openid-configuration
+        status: 404
+        file: null
+      - path: /.well-known/oauth-protected-resource
+        status: 200
+        file: null
+        note: 168-byte HTML meta-refresh to https://www.drillster.com — not a document
+      - path: /.well-known/api-catalog
+        status: 200
+        file: null
+        note: 168-byte HTML meta-refresh to https://www.drillster.com — not a document
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        file: null
+      - path: /.well-known/apis.json
+        status: 404
+        file: null
+      - path: /apis.json
+        status: 404
+        file: null
+      - path: /apis.yml
+        status: 404
+        file: null
+      - path: /.well-known/aauth-resource.json
+        status: 404
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 404
+        file: null
+      - path: /.well-known/agent.json
+        status: 404
+        file: null
+      - path: /.well-known/ucp.json
+        status: 404
+        file: null
+      - path: /.well-known/acp.json
+        status: 404
+        file: null
+      - path: /.well-known/drillster-negative-control-7f3ab91c.json
+        status: 404
+        file: null
+        note: negative control — a 2xx here would have discarded every hit on this host
+  - host: https://drillster.com
+    note: >-
+      Marketing site (Next.js). Returns a 404 error shell for every named path; the API and
+      the developer documentation live on www.drillster.com, a different application.
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 404
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        file: null
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+        file: null
+      - path: /.well-known/api-catalog
+        status: 404
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        file: null
+      - path: /.well-known/apis.json
+        status: 404
+        file: null
+      - path: /apis.json
+        status: 404
+        file: null
+      - path: /apis.yml
+        status: 404
+        file: null
+      - path: /.well-known/aauth-resource.json
+        status: 404
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 404
+        file: null
+      - path: /.well-known/agent.json
+        status: 404
+        file: null
+      - path: /.well-known/drillster-negative-control-7f3ab91c.json
+        status: 404
+        file: null
+        note: negative control
+  - host: https://drill.st
+    note: >-
+      Short-link / redirect host referenced from the developer documentation. Answers 401
+      with a zero-byte body for every /.well-known/ path, and RFC 7807 problem+json 400 at
+      the root paths. Not a discovery surface.
+    documents:
+      - path: /.well-known/security.txt
+        status: 401
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 401
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 401
+        file: null
+      - path: /.well-known/oauth-protected-resource
+        status: 401
+        file: null
+      - path: /.well-known/api-catalog
+        status: 401
+        file: null
+      - path: /.well-known/apis.json
+        status: 401
+        file: null
+      - path: /apis.json
+        status: 400
+        file: null
+      - path: /apis.yml
+        status: 400
+        file: null
+      - path: /.well-known/aauth-resource.json
+        status: 401
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 401
+        file: null
+      - path: /.well-known/agent.json
+        status: 401
+        file: null
+      - path: /.well-known/drillster-negative-control-7f3ab91c.json
+        status: 401
+        file: null
+        note: negative control

@@ -1,0 +1,25 @@
+generated: '2026-09-06'
+method: searched
+source: >-
+  https://www.drillster.com/info/developers/ ; api.github.com/orgs/drillster/repos ;
+  npm registry search for "drillster" ; web search for a Drillster MCP server
+status: none
+note: >-
+  Recorded absence, not a candidate. Drillster ships no MCP server: nothing in the developer
+  documentation, nothing in the public github.com/drillster repository list, no npm or PyPI
+  package, and no listing in the public MCP registries. Nor can a candidate tool list be
+  DERIVED here, because Drillster publishes no OpenAPI — deriving tools from prose HTML
+  endpoint pages would be authoring a tool surface on the provider's behalf, which this
+  pipeline does not do. No MCPServer pointer is emitted, and none should be until a real
+  server appears.
+  The agent-facing surface Drillster does have today is the REST API at
+  https://www.drillster.com/api/2.1.1 (OAuth 2.0 JWT-bearer, ~180 documented endpoints) plus
+  the outbound webhook catalogue in asyncapi/drillster-push-webhooks.yml.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: searched
+tools: []

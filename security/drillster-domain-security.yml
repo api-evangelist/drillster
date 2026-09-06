@@ -1,20 +1,52 @@
-generated: '2026-07-11'
+generated: '2026-09-06'
 method: probed
-source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+source: >-
+  live DNS/TLS/HTTP probes of the hosts in apis.yml plus the API base host
+  (https://www.drillster.com/api/2.1.1). Baseline written by
+  0-working/probe-domain-security.py, then corrected by hand — see hsts_note.
 hosts:
-- host: www.drillster.com
-  https: true
-  tls_version: TLSv1.3
-  cert_expires: Sep  3 23:59:59 2026 GMT
-  hsts: null
+  - host: www.drillster.com
+    role: API host, developer documentation, console, OAuth authorization server
+    https: true
+    tls_version: TLSv1.3
+    cert_expires: Nov 28 19:37:15 2026 GMT
+    hsts: true
+    hsts_max_age: 31536000
+    hsts_include_subdomains: true
+    hsts_preload: true
+    hsts_header: 'max-age=31536000; includeSubDomains; preload'
+  - host: drillster.com
+    role: marketing site (separate Next.js application)
+    https: true
+    hsts: true
+    hsts_max_age: 31536000
+    hsts_include_subdomains: true
+    hsts_preload: false
+    hsts_header: 'max-age=31536000; includeSubDomains'
+hsts_note: >-
+  The automated probe recorded hsts: null for www.drillster.com on this run. That was a false
+  negative: a live HEAD of https://www.drillster.com/, of the developer documentation, and of
+  https://www.drillster.com/api/2.1.1/version each returned
+  strict-transport-security: max-age=31536000; includeSubDomains; preload on 2026-09-06.
+  Corrected here with the header quoted verbatim.
+response_security_headers:
+  observed_on: https://www.drillster.com/api/2.1.1/version
+  date: '2026-09-06'
+  headers:
+    x-content-type-options: nosniff
+    x-frame-options: DENY
+    referrer-policy: no-referrer
+    x-xss-protection: '0'
+    cache-control: no-cache, no-store, max-age=0, must-revalidate
 domains:
-- domain: drillster.com
-  dnssec: true
-  caa:
-  - 0 issue "digicert.com"
-  - 0 issue "pki.goog"
-  - 0 issue "letsencrypt.org"
-  - 0 issue "comodoca.com"
-  spf: true
-  dmarc: true
-  dmarc_policy: quarantine
+  - domain: drillster.com
+    dnssec: true
+    caa:
+      - 0 issue "pki.goog"
+      - 0 issue "letsencrypt.org"
+    spf: true
+    dmarc: true
+    dmarc_policy: quarantine
+    caa_note: >-
+      An earlier probe (2026-07-11) also recorded digicert.com and comodoca.com issue records;
+      the current CAA set is narrower.

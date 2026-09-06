@@ -1,0 +1,167 @@
+generated: '2026-09-06'
+method: searched
+source: https://www.drillster.com/info/developers/
+note: >-
+  Drillster publishes no OpenAPI, so nothing here is derived from a spec. Every entry is read
+  from a named Drillster documentation page or from a discovery document fetched live from
+  the provider's own host, and the evidence field says which.
+standards:
+  - id: oauth2
+    conforms: true
+    evidence: >-
+      https://www.drillster.com/.well-known/oauth-authorization-server returns an RFC 8414
+      Authorization Server Metadata document (HTTP 200, 2026-09-06) declaring issuer,
+      authorization_endpoint, token_endpoint, jwks_uri and revocation_endpoint.
+  - id: rfc8414-authorization-server-metadata
+    conforms: true
+    evidence: well-known/drillster-oauth-authorization-server.json (fetched 2026-09-06, HTTP 200)
+  - id: rfc7523-jwt-bearer-grant
+    conforms: true
+    evidence: >-
+      The documented server-to-server grant is
+      urn:ietf:params:oauth:grant-type:jwt-bearer, cited by Drillster to RFC 7523 §2.1 —
+      https://www.drillster.com/info/developers/rest-apis/oauth/jwt-authorization-grant/
+  - id: oauth2-authorization-code
+    conforms: true
+    evidence: https://www.drillster.com/info/developers/rest-apis/oauth/authorization-code-grant/
+  - id: oidc
+    conforms: partial
+    evidence: >-
+      Drillster acts as an OIDC RELYING PARTY against a customer-operated identity server for
+      SSO (https://www.drillster.com/info/developers/integration-types/open-id-connect/), and
+      LTI 1.3 registration uses the customer's openIdConnectConfig. Drillster does NOT act as
+      an OIDC provider — /.well-known/openid-configuration returns 404 on every host probed.
+  - id: rfc9116-security-txt
+    conforms: true
+    evidence: >-
+      https://www.drillster.com/.well-known/security.txt (HTTP 200, 2026-09-06) — PGP-signed,
+      carries Canonical, Expires, Policy, Contact, Encryption, Preferred-Languages and Hiring.
+  - id: rfc7159-json
+    conforms: true
+    evidence: >-
+      The 2.1.1 reference requires an RFC 7159 compliant JSON parser and states responses are
+      returned in compact JSON.
+  - id: iso8601-datetime
+    conforms: true
+    evidence: >-
+      "All dates and timestamps are formatted according to ISO 8601 ... all in UTC" —
+      https://www.drillster.com/info/developers/api/2.1.1/
+  - id: iso639-1
+    conforms: true
+    evidence: locale parameter on POST /users must be an ISO 639-1 language code
+  - id: iso3166-1
+    conforms: true
+    evidence: domicile parameter on POST /users must be an ISO 3166-1 alpha-2 country code
+  - id: iana-time-zone-database
+    conforms: true
+    evidence: timeZone parameter on POST /users uses IANA tz identifiers (Europe/Amsterdam, ...)
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      Errors use a proprietary two-field Error object (id + description), not
+      application/problem+json — https://www.drillster.com/info/developers/api/2.1.1/objects/error/
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: >-
+      A staged deprecation policy is published as prose, but no Sunset or Deprecation response
+      header is documented and none was observed on a live response (2026-09-06).
+  - id: openapi
+    conforms: false
+    evidence: >-
+      No OpenAPI/Swagger document found. Probed /openapi.json, /swagger.json and the
+      well-known set on www.drillster.com and drillster.com; api.drillster.com does not
+      resolve. The contract is published as HTML reference pages only.
+  - id: asyncapi
+    conforms: false
+    evidence: >-
+      A complete webhook catalogue is published, but no AsyncAPI document —
+      asyncapi/drillster-push-webhooks.yml
+  - id: json-api
+    conforms: false
+    evidence: Responses are plain JSON objects with no JSON:API document structure.
+  - id: idempotency
+    conforms: false
+    evidence: >-
+      No idempotency key or replay-protection contract is documented on the write surface —
+      conventions/drillster-conventions.yml
+domain_standards:
+  sector: education / corporate learning
+  note: >-
+    Cross-checked against the `education` regime standards list in
+    api-search/signals/_data/scoring.yml. Drillster declares LTI conformance in its own
+    integration documentation; SCORM and the widget/SSO surface are declared on the same
+    pages. Standards on that shortlist which Drillster does NOT claim are recorded as false
+    rather than omitted, so the shape of the gap is visible.
+  standards:
+    - id: lti
+      name: 1EdTech Learning Tools Interoperability
+      conforms: true
+      versions: ['1.0', '1.3']
+      role: Drillster is the LTI tool; the customer's LMS is the platform
+      evidence: >-
+        "Your LMS is LTI 1.0 or LTI 1.3 compliant" plus the required LTI 1.0
+        (oauthConsumerKey, signatureSharedSecret) and LTI 1.3 (openIdConnectConfig: issuer,
+        clientId, registrationId, jwksUri, redirectUri, authorizationUri, tokenUri, scope)
+        registration parameters — https://www.drillster.com/info/developers/integration-types/lti/
+      note: >-
+        Configuration is not self-service: the documentation instructs the customer to contact
+        Drillster Support to have the LTI integration set up for their organization.
+    - id: scorm
+      name: SCORM (ADL Sharable Content Object Reference Model)
+      conforms: true
+      versions: ['1.2']
+      not_supported: ['2004']
+      evidence: >-
+        "Your LMS is SCORM 1.2 compliant. At this time SCORM 2004 is not supported." —
+        https://www.drillster.com/info/developers/integration-types/scorm/
+    - id: saml
+      name: SAML 2.0
+      conforms: false
+      evidence: >-
+        Not named anywhere in the developer documentation; the documented SSO path is OpenID
+        Connect (and LTI 1.3, which is OIDC-based).
+    - id: scim
+      name: SCIM 2.0
+      conforms: false
+      evidence: >-
+        No urn:ietf:params:scim:schemas URN and no /scim/v2 surface. User and group
+        provisioning is done through Drillster's own REST endpoints (POST /users, PUT
+        /group/{id}/members/{id}) and through LTI just-in-time account provisioning.
+    - id: oneroster
+      name: 1EdTech OneRoster
+      conforms: false
+      evidence: Not named in the integration documentation.
+    - id: caliper
+      name: 1EdTech Caliper Analytics
+      conforms: false
+      evidence: >-
+        Learning-activity events ARE emitted (QUESTION_ANSWERED, TEST_COMPLETED,
+        OBJECTIVE_BECAME_OK/NOK) but as Drillster's own proprietary event types, not as
+        Caliper sensor envelopes.
+    - id: xapi
+      name: xAPI / Experience API (ADL)
+      conforms: false
+      evidence: >-
+        Not named in the integration documentation; the event surface is Drillster's own
+        webhook catalogue.
+    - id: qti
+      name: 1EdTech QTI
+      conforms: false
+      evidence: >-
+        Tests and questions are modelled by Drillster's own Test / Question / Answer objects;
+        no QTI import or export is documented.
+    - id: ed-fi
+      name: Ed-Fi
+      conforms: false
+      evidence: Not named; Drillster's market is corporate/vocational training, not K-12 SIS.
+compliance_program:
+  published: false
+  certifications: []
+  note: >-
+    No trust centre, no SOC 2 / ISO 27001 / ISO 27701 certification page and no compliance
+    hub was found on drillster.com or www.drillster.com. What IS published is a responsible
+    disclosure policy (https://www.drillster.com/info/reporting-security-breach/) and a
+    privacy policy. GDPR posture is visible in the API itself — POST /users and the group
+    membership endpoints return a privacy_storage_location_conflict error, which implies a
+    configurable privacy data storage location per organization — but Drillster publishes no
+    certification claim, so no Compliance pointer is emitted for this record.

@@ -9,10 +9,15 @@
 # Same posture as the well-known probe artifacts: a recorded absence is a valid
 # measurement. Do not delete this to 'clean up' — deleting it restores the bug.
 llms:
-  probed: '2026-08-17'
+  probed: '2026-09-06'
   url: https://drillster.com/llms.txt
-  verdict: unreachable
+  verdict: absent
   published: false
-  detail: HTTPError
+  detail: HTTP 404
   note: >-
-    The declared URL could not be fetched.
+    Re-probed 2026-09-06. Drillster serves no llms.txt on either host: GET
+    https://drillster.com/llms.txt returned 404 and GET https://www.drillster.com/llms.txt
+    returned 404 (the site's HTML "Not found" page, 33,405 bytes). The stale apis.yml pointer
+    that declared https://drillster.com/llms.txt was removed in the same pass. An API
+    Evangelist-generated llms.txt now lives at llms/drillster-llms.txt (method: generated);
+    it is OUR artifact and makes no claim that Drillster publishes one.

@@ -1,0 +1,487 @@
+generated: '2026-09-06'
+method: searched
+source: https://www.drillster.com/info/developers/api/2.1.1/endpoints/
+format: proprietary
+note: 'Drillster publishes no OpenAPI, so this catalogue was harvested from the per-endpoint "Error responses"
+  tables in the 2.1.1 HTML reference. It is a SAMPLE, not the whole registry: 18 of the ~180 documented
+  endpoints were read and 79 distinct error id + status pairs came back. Every id below is quoted verbatim
+  from the endpoint page named in observed_on. Drillster does not use RFC 9457 problem+json; it returns
+  its own two-field Error object, documented at the objects/error reference below.'
+envelope:
+  media_type: application/json
+  object: Error
+  docs: https://www.drillster.com/info/developers/api/2.1.1/objects/error/
+  fields:
+  - name: id
+    type: String
+    required: true
+    description: A string to identify the error type. This is the field an application should branch on.
+  - name: description
+    type: String
+    required: true
+    description: A human readable description of the issue. Drillster says this can usually be ignored
+      by the application.
+  example:
+    id: not_authenticated
+    description: User was not authenticated
+status_codes:
+- status: 200
+  meaning: OK — everything went OK.
+- status: 201
+  meaning: Created — the request resulted in the creation of a new resource.
+- status: 204
+  meaning: No Content — processed successfully, no body returned.
+- status: 304
+  meaning: Not Modified — there was no new data to return.
+- status: 400
+  meaning: Bad Request — the request is invalid; an Error object explains why.
+- status: 401
+  meaning: Not Authorized — credentials missing or invalid.
+- status: 403
+  meaning: Forbidden — request understood but refused.
+- status: 404
+  meaning: Not Found — invalid URI or the resource does not exist.
+- status: 500
+  meaning: Internal Server Error — something went wrong in the Drillster application.
+- status: 502
+  meaning: Bad Gateway — Drillster is down or being upgraded.
+- status: 503
+  meaning: Service Unavailable — servers up but overloaded; try again later.
+coverage:
+  endpoints_documented_total: 180
+  endpoints_sampled: 18
+  problems_captured: 79
+  note: Re-run against more endpoint pages to extend; the ids are stable and namespaced per endpoint.
+problems:
+- id: account_exists
+  status: 400
+  title: An account already exists for the specified email address. The user ID for the existing account
+    is given (see above example).
+  observed_on:
+  - POST /users
+- id: account_is_group_manager
+  status: 400
+  title: The account is managing one or more groups
+  observed_on:
+  - DELETE /user/{id}
+- id: already_invited
+  status: 400
+  title: The given user is already invited to the group.
+  observed_on:
+  - PUT /group/{id}/members/{id}
+- id: catalog_description_missing
+  status: 400
+  title: No catalog description was specified.
+  observed_on:
+  - POST /catalogs
+- id: catalog_name_missing
+  status: 400
+  title: No catalog name was specified.
+  observed_on:
+  - POST /catalogs
+- id: description_missing
+  status: 400
+  title: No group description specified
+  observed_on:
+  - POST /groups
+- id: drill_not_released
+  status: 400
+  title: Not all of the specified drills have been released.
+  observed_on:
+  - POST /tests
+- id: drills_missing
+  status: 400
+  title: No drills specified.
+  observed_on:
+  - POST /tests
+- id: duplicate_email
+  status: 400
+  title: There is already an account with this email.
+  observed_on:
+  - PUT /group/{id}/members/{id}
+- id: duplicate_third_party
+  status: 400
+  title: There is already an account with this third party id.
+  observed_on:
+  - PUT /group/{id}/members/{id}
+- id: email_address_invalid
+  status: 400
+  title: An invalid email address was specified. Trying again with this email address will not help.
+  observed_on:
+  - POST /users
+- id: email_address_missing
+  status: 400
+  title: Unable to invite user, because no email address is provided.
+  observed_on:
+  - PUT /group/{id}/members/{id}
+- id: email_address_not_specified
+  status: 400
+  title: No email address was specified.
+  observed_on:
+  - POST /users
+- id: empty_drill
+  status: 400
+  title: The specified drills do not have any entries.
+  observed_on:
+  - POST /tests
+- id: group_not_empty
+  status: 400
+  title: A restriction was set or removed, but the group is not empty
+  observed_on:
+  - PUT /group/{id}
+- id: illegal_date
+  status: 400
+  title: Given evaluation date is not valid.
+  observed_on:
+  - GET /objectives
+- id: illegal_playable_id_type
+  status: 400
+  title: Both a versionResolvingStrategy and a versioned playable_id were specified
+  observed_on:
+  - GET /playable/{id}
+- id: inaccessible_drill
+  status: 400
+  title: Caller has no access to reference drill.
+  observed_on:
+  - POST /tests
+- id: insufficient_questions
+  status: 400
+  title: Insufficient questions available that meet the specified entry tag filters.
+  observed_on:
+  - POST /tests
+- id: invalid_allow_question_navigation
+  status: 400
+  title: Question navigation is not allowed for adaptive tests or for tests that have answer time limits.
+  observed_on:
+  - POST /tests
+- id: invalid_catalog_restriction_mode
+  status: 400
+  title: Catalog restriction mode is not valid
+  observed_on:
+  - PUT /group/{id}
+  - POST /groups
+- id: invalid_custom_reference
+  status: 400
+  title: Invalid custom reference
+  observed_on:
+  - PUT /group/{id}
+  - GET /groups
+  - POST /groups
+- id: invalid_description
+  status: 400
+  title: Given group description is not valid
+  observed_on:
+  - PUT /group/{id}
+- id: invalid_direction
+  status: 400
+  title: Invalid direction specified.
+  observed_on:
+  - POST /tests
+- id: invalid_disclosure
+  status: 400
+  title: Invalid disclosure specified.
+  observed_on:
+  - POST /tests
+- id: invalid_email_address
+  status: 400
+  title: The given email address is not valid.
+  observed_on:
+  - PUT /group/{id}/members/{id}
+- id: invalid_group_id
+  status: 400
+  title: Group ID is not valid
+  observed_on:
+  - PUT /group/{id}
+- id: invalid_name
+  status: 400
+  title: Given group name is not valid
+  observed_on:
+  - PUT /group/{id}
+- id: invalid_nr_of_questions
+  status: 400
+  title: The given number of questions is not valid. Possible causes are:No number of questions specified;Exactly
+    one number of questions can be specified for an adaptive test;Not all drills have sufficient questions
+    available for this test setup;The specified number of questions is invalid, or exceeds the number
+    of available questions;The number of drills does not match the number of question counts.
+  observed_on:
+  - POST /tests
+- id: invalid_nr_of_weights
+  status: 400
+  title: The number of specified drills does not match the number of given weights.
+  observed_on:
+  - POST /tests
+- id: invalid_permission
+  status: 400
+  title: Specified permission filter is not valid.
+  observed_on:
+  - GET /groups
+- id: invalid_style
+  status: 400
+  title: The specified style is invalid.
+  observed_on:
+  - POST /tests
+- id: invalid_subscription_duration
+  status: 400
+  title: Invalid subscription duration specified
+  observed_on:
+  - POST /catalogs
+  - PUT /group/{id}
+  - POST /groups
+- id: invalid_subscription_end_configuration
+  status: 400
+  title: Invalid combination of subscription duration and date fields specified
+  observed_on:
+  - POST /catalogs
+  - PUT /group/{id}
+  - POST /groups
+- id: invalid_subscription_end_date
+  status: 400
+  title: Invalid subscription end date specified
+  observed_on:
+  - POST /catalogs
+  - PUT /group/{id}
+  - POST /groups
+- id: invalid_subscription_end_day
+  status: 400
+  title: Invalid subscription end day specified
+  observed_on:
+  - POST /catalogs
+  - PUT /group/{id}
+  - POST /groups
+- id: invalid_subscription_end_month
+  status: 400
+  title: Invalid subscription end month specified
+  observed_on:
+  - POST /catalogs
+  - PUT /group/{id}
+  - POST /groups
+- id: invalid_subscription_end_time
+  status: 400
+  title: Invalid subscription end time specified
+  observed_on:
+  - POST /catalogs
+  - PUT /group/{id}
+  - POST /groups
+- id: invalid_subscription_end_year
+  status: 400
+  title: Invalid subscription end year specified
+  observed_on:
+  - POST /catalogs
+  - PUT /group/{id}
+  - POST /groups
+- id: invalid_tags
+  status: 400
+  title: The specified drill does not contain any of the specified entry tags.
+  observed_on:
+  - POST /tests
+- id: invalid_third_party_id
+  status: 400
+  title: An invalid third party ID was specified. Contents restrictions apply.
+  observed_on:
+  - POST /users
+- id: invalid_time_limit
+  status: 400
+  title: The specified time limit is invalid..
+  observed_on:
+  - POST /tests
+- id: invalid_time_zone
+  status: 400
+  title: Invalid subscription end time zone specified
+  observed_on:
+  - POST /catalogs
+  - PUT /group/{id}/members/{id}
+  - PUT /group/{id}
+  - POST /groups
+  - POST /users
+- id: invalid_version_resolving_strategy
+  status: 400
+  title: The specified versionResolvingStrategy is invalid
+  observed_on:
+  - GET /playable/{id}
+- id: invalid_weight
+  status: 400
+  title: The specified weight is invalid. Weights must be 0-100.
+  observed_on:
+  - POST /tests
+- id: invitation_quota_reached
+  status: 400
+  title: The maximum number of members or invitations has been reached for this organization.
+  observed_on:
+  - PUT /group/{id}/members/{id}
+- id: locale_invalid
+  status: 400
+  title: An invalid locale was specified. Only ISO 639-1 values are allowed.
+  observed_on:
+  - PUT /group/{id}/members/{id}
+  - POST /users
+- id: missing_playable_id
+  status: 400
+  title: No playable ID given.
+  observed_on:
+  - GET /playable/{id}
+- id: missing_unknown_columns
+  status: 400
+  title: No unknown column names are specified, while the drills have more than one unknown columns.
+  observed_on:
+  - POST /tests
+- id: name_missing
+  status: 400
+  title: Unable to set up a new account, because no name is provided.
+  observed_on:
+  - PUT /group/{id}/members/{id}
+  - POST /groups
+- id: no_user
+  status: 400
+  title: Cannot add an unknown user to a group.
+  observed_on:
+  - PUT /group/{id}/members/{id}
+- id: no_user_specified
+  status: 400
+  title: No user was specified in the request.
+  observed_on:
+  - PUT /group/{id}/members/{id}
+- id: not_authorized
+  status: 400
+  title: The calling user must have PUBLISH_TO_CATALOG permission.
+  observed_on:
+  - POST /catalogs
+- id: operation_not_allowed
+  status: 400
+  title: The organization settings do not allow creating new group member accounts.
+  observed_on:
+  - PUT /group/{id}/members/{id}
+- id: option_invalid
+  status: 400
+  title: The given option or options are invalid.
+  observed_on:
+  - POST /users
+- id: privacy_storage_location_conflict
+  status: 400
+  title: There is a conflict between the invited user's privacy data storage location and the required
+    privacy data storage location of the organization.
+  observed_on:
+  - PUT /group/{id}/members/{id}
+- id: real_name_not_specified
+  status: 400
+  title: No real name was specified.
+  observed_on:
+  - POST /users
+- id: residence_country_invalid
+  status: 400
+  title: The given residence country code is invalid. Only ISO 3166-1 values are allowed.
+  observed_on:
+  - PUT /group/{id}/members/{id}
+  - POST /users
+- id: test_id_missing
+  status: 400
+  title: No test ID was specified
+  observed_on:
+  - DELETE /test/{id}
+- id: unable_to_set_time_limit
+  status: 400
+  title: A time limit cannot be configured for this test, since one or more drills have configured answer
+    time limits.
+  observed_on:
+  - POST /tests
+- id: unknown_column_not_found
+  status: 400
+  title: The specified drills do not have an unknown column with the specified name.
+  observed_on:
+  - POST /tests
+- id: unknown_drill
+  status: 400
+  title: Specified drill is unknown.
+  observed_on:
+  - POST /tests
+- id: unknown_start_drill
+  status: 400
+  title: The specified start drill is not part of the test.
+  observed_on:
+  - POST /tests
+- id: unknown_test_score_transformer
+  status: 400
+  title: The specified transformer is unknown.
+  observed_on:
+  - POST /tests
+- id: year_of_birth_invalid
+  status: 400
+  title: An invalid year of birth was specified. Only 4-digit years are allowed.
+  observed_on:
+  - PUT /group/{id}/members/{id}
+  - POST /users
+- id: no_permission
+  status: 401
+  title: You don't have permission to delete this test
+  observed_on:
+  - GET /playable/{id}
+  - DELETE /test/{id}
+- id: not_linked_to_organization
+  status: 401
+  title: Caller is not linked to an organization.
+  observed_on:
+  - POST /catalogs
+- id: unauthenticated
+  status: 401
+  title: User does not have permission to perform this action.
+  observed_on:
+  - GET /groups
+- id: access_denied
+  status: 403
+  title: No access to given account
+  observed_on:
+  - DELETE /user/{id}
+- id: domain_restricted
+  status: 403
+  title: The domain of the given email address may not be used for creating new accounts.
+  observed_on:
+  - POST /users
+- id: no_permission
+  status: 403
+  title: No permission to change group details, no access to the provided restriction catalog, or the
+    catalog restriction mode can not be used for this catalog.
+  observed_on:
+  - PUT /group/{id}
+  - POST /groups
+  - POST /users
+- id: no_playable_access
+  status: 403
+  title: Caller is not permitted to retrieve these playable details.
+  observed_on:
+  - GET /playable/{id}
+- id: user_lacks_required_catalog_access
+  status: 403
+  title: The user lacks access to the catalog that this group is restricted to.
+  observed_on:
+  - PUT /group/{id}/members/{id}
+- id: group_not_found
+  status: 404
+  title: Could not retrieve group details.
+  observed_on:
+  - PUT /group/{id}/members/{id}
+- id: not_found
+  status: 404
+  title: Group not found
+  observed_on:
+  - PUT /group/{id}
+  - GET /playable/{id}
+  - DELETE /user/{id}
+- id: unknown_test
+  status: 404
+  title: The specified test is unknown
+  observed_on:
+  - DELETE /test/{id}
+- id: unknown_user
+  status: 404
+  title: Given user ID is not known.
+  observed_on:
+  - PUT /group/{id}/members/{id}
+- id: error
+  status: 500
+  title: Error while joining the group or setting up the new account.
+  observed_on:
+  - PUT /group/{id}/members/{id}
+- id: icon_upload_failed
+  status: 500
+  title: Could not process group icon
+  observed_on:
+  - PUT /group/{id}

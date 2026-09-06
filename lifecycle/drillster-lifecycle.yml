@@ -1,0 +1,76 @@
+generated: '2026-09-06'
+method: searched
+source: https://www.drillster.com/info/developers/api/2.1.1/
+versioning:
+  scheme: uri-path
+  current: 2.1.1
+  base_url: https://www.drillster.com/api/2.1.1
+  docs: https://www.drillster.com/info/developers/api/
+  build_version_endpoint: https://www.drillster.com/api/2.1.1/version
+  observed_build: 2-1-1.601
+  observed_on: '2026-09-06'
+  supported_versions:
+    - version: 2.1.1
+      status: Current version
+      formats: [JSON]
+  note: >-
+    The version index lists exactly one supported REST API version. Multiple Drillster APIs
+    may be used interchangeably with the same OAuth access token.
+compatibility:
+  promise: >-
+    Each documented version is guaranteed to remain compatible for the lifespan of that
+    version. Changes inside a version are always backward compatible.
+  allowed_in_version:
+    - new fields may be added to responses of existing endpoints
+    - new endpoints may be added to an existing version
+    - JSON field order may change at any time
+  breaking_changes: shipped only as a new API version
+deprecation:
+  policy_url: https://www.drillster.com/info/developers/api/2.1.1/
+  policy_documented: true
+  sunset_header: false
+  stages:
+    - name: Deprecation
+      description: >-
+        The API version is marked as deprecated in the documentation and receives no further
+        development. New integrations should not select a deprecated version.
+    - name: Upgrade path
+      description: >-
+        An upgrade document is published detailing the changes between the version being
+        decommissioned and the recommended version.
+    - name: Customer communication
+      description: >-
+        A decommissioning timeline is set, and Drillster actively contacts identifiable users
+        of the older version to advise on upgrading.
+    - name: Decommissioning
+      description: The deprecated version is removed.
+  note: >-
+    A written, staged deprecation policy exists. It is prose in the API reference — there is
+    no machine-readable signal: no RFC 8594 Sunset or Deprecation response header is
+    documented, and none was present on a live GET of /api/2.1.1/version (2026-09-06).
+  event_deprecations:
+    docs: https://www.drillster.com/info/developers/api/push/events/
+    note: >-
+      The event-notification service also carries deprecated event types, described as "no
+      longer available for new integrations". The type names are not published on the page.
+deprecated_operations: []
+status_page: null
+status_page_note: >-
+  No status page found. status.drillster.com does not resolve (DNS NXDOMAIN, 2026-09-06) and
+  https://drillster.statuspage.io/ redirects to /inactive — i.e. an Atlassian Statuspage
+  subdomain exists but is not active. No StatusPage pointer is emitted for this record.
+sla:
+  url: null
+  uptime_target: null
+  note: >-
+    No public SLA or uptime commitment is published. The pricing page sells a single annual
+    enterprise licence and directs buyers to a demo for terms.
+support:
+  channels:
+    - email: support@drillster.com
+    - help_center: https://support.drillster.com/hc/en-us
+    - contact: https://drillster.com/en/contact
+retirement_of_integrations:
+  note: >-
+    SCORM support is limited to SCORM 1.2; the documentation states SCORM 2004 is not
+    supported. LTI is supported at 1.0 and 1.3.

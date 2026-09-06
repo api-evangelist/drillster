@@ -1,0 +1,134 @@
+generated: '2026-09-06'
+method: searched
+source: https://www.drillster.com/info/developers/api/2.1.1/
+note: >-
+  Derived from Drillster's own HTML API reference (there is no OpenAPI to read). Every
+  statement below is quoted or paraphrased from a page linked in docs:.
+api:
+  name: Drillster REST API
+  version: 2.1.1
+  base_url: https://www.drillster.com/api/2.1.1
+  style: REST over HTTPS, JSON responses
+  transport: HTTPS only — plain HTTP is not permitted for API access
+authentication:
+  style: OAuth 2.0 bearer token in the Authorization header
+  detail: authentication/drillster-authentication.yml
+  docs: https://www.drillster.com/info/developers/rest-apis/oauth/
+request_format:
+  get: query parameters, URL-encoded
+  post_put: application/x-www-form-urlencoded form posts (NOT JSON request bodies)
+  delete: typically no parameters
+  docs: https://www.drillster.com/info/developers/api/2.1.1/
+response_format:
+  media_type: application/json
+  serialization: compact (no indentation or newlines); field order is not guaranteed
+  case_sensitivity: all API input and output is case sensitive
+  parser_requirement: RFC 7159 compliant JSON parser
+dates_and_times:
+  standard: ISO 8601
+  timezone: UTC for every date and timestamp, regardless of the user's own time zone
+  examples: ['2024-01-11T16:54:11Z', '2024-01-11T16:54Z']
+pagination:
+  style: cursor (id-of-last-element)
+  params:
+    - name: resultFrom
+      description: the id of the last element from the previous page, as quoted in the Pagination object
+    - name: resultSize
+      description: maximum number of items to return; defaults to 10 when omitted on collection endpoints
+  response_object: Pagination
+  response_fields: [total, lastOnPage, moreAvailable]
+  docs: https://www.drillster.com/info/developers/api/2.1.1/objects/pagination/
+  note: >-
+    total is the full match count regardless of the page window, so a client can size the
+    walk before starting it.
+field_expansion:
+  supported: partial
+  mechanism: >-
+    A `profile` query parameter on some collection endpoints selects DEFAULT (full detail) or
+    AUTO_COMPLETE (the reduced field set needed for a type-ahead). This is a response-shape
+    selector, not a general sparse-fieldset or expand syntax.
+metadata:
+  supported: true
+  mechanism: >-
+    customReference — a caller-supplied external identifier that can be set on objects such as
+    groups and then used as an exact-match, case-sensitive filter on the collection endpoints.
+    It is how a caller correlates Drillster records with rows in their own system.
+request_tracing:
+  request_id_header: null
+  note: >-
+    No correlation/request-id header is documented on API responses, and none was observed on
+    a live unauthenticated GET https://www.drillster.com/api/2.1.1/version (2026-09-06). The
+    event-notification payloads DO carry an eventId and an event timestamp, so tracing exists
+    on the webhook side but not on the request/response side.
+versioning:
+  scheme: uri-path
+  current: 2.1.1
+  example: https://www.drillster.com/api/2.1.1/version
+  supported_versions: ['2.1.1']
+  compatibility_promise: >-
+    Each documented version stays backward compatible for its lifespan. New fields and new
+    endpoints may be added inside a version; breaking changes go into a new version.
+  detail: lifecycle/drillster-lifecycle.yml
+error_envelope:
+  format: proprietary two-field Error object (id + description) — NOT RFC 9457 problem+json
+  branch_on: id
+  detail: errors/drillster-problem-types.yml
+rate_limit_signaling:
+  headers: []
+  status_on_exhaustion: null
+  note: >-
+    Drillster's terms of use for the API reserve the right to "restrict the throughput of
+    individual API users", but publish no numeric limit, no window, and no rate-limit response
+    headers. A live unauthenticated GET of /api/2.1.1/version returned no X-RateLimit-* or
+    RateLimit-* header (2026-09-06). See rate-limits/drillster-rate-limits.yml.
+  detail: rate-limits/drillster-rate-limits.yml
+idempotency:
+  coverage: none
+  header: null
+  scope: []
+  note: >-
+    No idempotency key, no request-replay protection and no conditional-write mechanism appear
+    anywhere in the 2.1.1 reference, the OAuth documentation, or the event-notification pages.
+    Several write endpoints are naturally idempotent by shape (PUT /group/{id}/members/{id}
+    re-invites rather than duplicating, and answers with already_invited), but that is
+    endpoint semantics, not a replay contract an agent can rely on across the surface. The
+    OUTBOUND direction is the opposite and is explicitly documented: event notifications are
+    at-least-once, Drillster will resend an unacknowledged event for 7 days, and the receiver
+    is told it must tolerate duplicates.
+reversibility:
+  grade: none
+  note: >-
+    Drillster's write surface includes hard deletes — DELETE /user/{id}, DELETE /group/{id},
+    DELETE /test/{id}, DELETE /drillable/{id}, DELETE /catalog/{id}, DELETE
+    /group/{id}/members/{id} and others — and the 2.1.1 reference documents no cancel, undo,
+    restore, or trash/retention window for any of them. Nothing in the documentation states a
+    period inside which a deleted object can be recovered, so no window is asserted here. The
+    one reversal the docs DO describe is on the event side and is explicitly refused: "We do
+    not have any options to resend any successfully sent events."
+  write_surface_examples:
+    - operation: DELETE /user/{id}
+      reversal: null
+      window: null
+      docs: https://www.drillster.com/info/developers/api/2.1.1/endpoints/user-id/delete/
+    - operation: DELETE /test/{id}
+      reversal: null
+      window: null
+      docs: https://www.drillster.com/info/developers/api/2.1.1/endpoints/test-id/delete/
+    - operation: DELETE /group/{id}
+      reversal: null
+      window: null
+      docs: https://www.drillster.com/info/developers/api/2.1.1/endpoints/group-id/delete/
+  partial_reversals_documented:
+    - action: group membership
+      reversal: DELETE /group/{id}/members/{id} reverses PUT /group/{id}/members/{id}
+      window: not stated
+    - action: publishing a playable
+      reversal: PUT /playable/{id}/publish and DELETE /playable/{id}/forwarded are inverse-shaped pairs
+      window: not stated
+  caution: >-
+    An agent should treat every Drillster DELETE as final. No recovery window is published,
+    and inventing one would be the one error in this artifact set that could cost a customer
+    real data.
+dry_run_mode:
+  supported: false
+  note: No test/simulation mode, no sandbox tenancy and no dry-run parameter is documented.
