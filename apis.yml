@@ -47,6 +47,16 @@ tags:
   - LMS
   - Adaptive Learning
   - Compliance Training
+  - Webhook
+tags_raw:
+  - Assessments
+  - Education
+  - Learning
+  - Quizzes
+  - Training
+  - LMS
+  - Adaptive Learning
+  - Compliance Training
   - Webhooks
 url: >-
   https://raw.githubusercontent.com/api-evangelist/drillster/refs/heads/main/apis.yml
