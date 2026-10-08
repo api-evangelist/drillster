@@ -105,6 +105,8 @@ apis:
       - type: Webhooks
         url: asyncapi/drillster-push-webhooks.yml
 common:
+  - type: FinOps
+    url: finops/drillster-finops.yml
   - type: Website
     url: https://www.drillster.com
   - type: DeveloperPortal
