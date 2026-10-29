@@ -1,4 +1,4 @@
-# Drillster (drillster)
+# Drillster
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,61 +64,128 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Drillster is a digital learning platform that uses adaptive, repetition-based technology to help users acquire and retain knowledge and skills through personalized drills, quizzes, and learning modules.
+Drillster is a Utrecht-based adaptive learning platform for corporate and vocational training, built on repetition-based drills that schedule practice at the moment a learner is about to forget. Customers in aviation, healthcare, financial services, energy, railway and construction use it to keep safety- and compliance-critical knowledge reliable year-round. For developers, Drillster publishes a documented REST API (version 2.1.1, JSON over HTTPS, OAuth 2.0 with a JWT-bearer service-account grant) covering user provisioning, group and membership management, catalogs, drills, tests, objectives and results reporting; an outbound event notification service with seven webhook event types and a seven-day retry contract; an embeddable widget family with a JavaScript loader; and standards-based LMS integration through LTI 1.0/1.3, SCORM 1.2 and OpenID Connect single sign-on.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/drillster/refs/heads/main/apis.yml)
+**Areas:** Assessment · Education · Learning · Quizzes · Training · LMS · Adaptive Learning · Compliance Training · Webhook
 
-## Scope
+## Drillster on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Drillster is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/drillster/](https://apis.io/providers/drillster/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (1)
 
-- Assessments
-- Education
-- Learning
-- Quizzes
-- Training
-- LMS
+- [Drillster API](https://apis.io/apis/drillster/drillster-api/) — The Drillster REST API (v2.1.1) lets developers integrate Drillster's adaptive learning and training platform into external applications. Roughly 180…
 
-## Timestamps
+### Published properties
 
-- **Created:** 2025-02-17
-- **Modified:** 2026-04-28
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### AsyncAPI (1)
 
-### Drillster API
+Event-driven and webhook contracts.
 
-The Drillster REST API (v2.1.1) lets developers integrate Drillster's adaptive learning and training platform into external applications. It supports user account provisioning, group assignment, progress and results retrieval, event notifications via webhooks, and service account management.
+- [Drillster Push Webhooks](https://apis.io/asyncapis/drillster/drillster-push-webhooks/)
 
-**Human URL:** [https://www.drillster.com/info/developers/](https://www.drillster.com/info/developers/)
+#### Security (3)
 
-#### Tags
+Authentication, trust centre, and vulnerability disclosure.
 
-- Education
-- Learning
-- Training
-- Assessments
-- Quizzes
+- [Drillster Authentication](https://apis.io/security/drillster/drillster-authentication/)
+- [Drillster Domain Security](https://apis.io/security/drillster/drillster-domain-security/)
+- [Drillster Vulnerability Disclosure](https://apis.io/security/drillster/drillster-vulnerability-disclosure/)
 
-#### Properties
+#### OAuth scopes (1)
 
-- [Documentation](https://www.drillster.com/info/developers/)
-- [Authentication](https://www.drillster.com/info/developers/oauth2)
-- [SSO](https://www.drillster.com/info/developers/sso)
-- [SCORM](https://www.drillster.com/info/developers/scorm)
-- [LTI](https://www.drillster.com/info/developers/lti)
+The permissions the API asks for.
 
-## Common Properties
+- [Drillster Scopes](https://apis.io/scopes/drillster/drillster-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Drillster Plans Pricing](https://apis.io/plans/drillster/drillster-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Drillster Rate Limits](https://apis.io/rate-limits/drillster/drillster-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Drillster Finops](https://apis.io/finops/drillster/drillster-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.drillster.com)
 - [Documentation](https://www.drillster.com/info/developers/)
+- [Getting started](https://www.drillster.com/info/developers/rest-apis/registering-your-application/)
+- [API reference](https://www.drillster.com/info/developers/api/2.1.1/)
+- [Pricing](https://drillster.com/en/pricing)
+- [Sign up](https://drillster.com/en/request-demo)
+- [Support](https://support.drillster.com/hc/en-us)
+- [Blog](https://drillster.com/en/blog)
+- [Security](https://www.drillster.com/info/reporting-security-breach/)
+- [Terms of service](https://drillster.com/en/terms)
+- [Privacy policy](https://drillster.com/en/privacy)
+- [GitHub](https://github.com/drillster)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
+**Kin Score 50.9** — developing · rubric 0.25.0 · scored 2026-10-23
 
-**Email:** kin@apievangelist.com
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 39.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 28.9 |
+| Developer ergonomics | 57.1 |
+| Access clarity | 65.8 |
+
+**Agent readiness 33.5** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 40.2** — Education & Research
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/drillster/](https://apis.io/providers/drillster/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Drillster: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/drillster/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
