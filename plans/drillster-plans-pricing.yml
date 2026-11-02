@@ -1,0 +1,56 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-28'
+method: searched
+source: https://drillster.com/en/pricing
+sources:
+- https://drillster.com/en/pricing
+provenance:
+  tool: engine/economics/harvest_pricing.py
+  run: 20261028T161713
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: per-seat
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-28'
+  managed_tier: Enterprise plan
+published: true
+note: Yearly user-based pricing; only numeric figure is project minimum of €5,000 per year. Add-ons (SSO,
+  SCORM, LTI, API, connectors, Question Crafter) at additional cost; tailored quotes via demo.
+plan_count: 2
+currency: EUR
+plans:
+- name: Enterprise plan
+  price_text: Projects start at €5,000 per year
+  price: 5000
+  currency: EUR
+  period: year
+  unit: per user, yearly license
+  included_quota: Drillster learning app, Question Crafter, Reporting; integrations on demand
+- name: Education and non-profit pricing
+  price_text: Request discounted license
+  period: none
+  included_quota: Special pricing for qualifying educational institutions and non-profits
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - subscription
+  units: []
+  plans:
+  - name: Enterprise plan
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - year
+  - name: Education and non-profit pricing
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
