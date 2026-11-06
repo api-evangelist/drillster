@@ -33,18 +33,19 @@ plans:
   period: none
   included_quota: Special pricing for qualifying educational institutions and non-profits
 x-canonical:
-  generated: '2026-11-02'
+  generated: '2026-11-06'
   vocabulary: engine/economics/plans-canonical.yml
   models:
-  - subscription
-  units: []
+  - seat
+  units:
+  - seat
   plans:
   - name: Enterprise plan
     access: other
-    model: subscription
+    model: seat
     model_how: derived
     units:
-    - other
+    - seat
     periods:
     - year
   - name: Education and non-profit pricing
